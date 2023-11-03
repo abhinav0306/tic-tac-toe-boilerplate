@@ -29,10 +29,13 @@ function handleClick(event){
         p.innerHTML="X"
         p.style.color="yellow"
         xAttempts.push(parseInt(id-1))
+        Result(winningCombination,xAttempts,"X")
     }else{
         p.innerHTML="O"
         p.style.color="red"
         oAttempts.push(parseInt(id-1))
+        Result(winningCombination,oAttempts,"O")
+
     }
     click++
     //tie situation 
@@ -44,17 +47,32 @@ function handleClick(event){
 
 //result function
 function Result(winningCombination,attempts,player){
-    let flag=0
+    let count=0
     let checker =[]
     for (let i=0; i<winningCombination.length;i++){
     if(Array.isArray(winningCombination[i])){
-        Result(winningCombination,attempts,player)
+        Result(winningCombination[i],attempts,player)
     }
     else{
-        
+        if(attempts.includes(winningCombination[i])){
+            checker.push(true)
+            count++
+        }else{
+            checker.push(false)
+        }
     }
+    }
+    if(checker.every(el=>el===true)&&  count>2){
+        result.style.visibility="visible"
+        Message.innerHTML=player+" Won the Game!!!"
+        wonTheGame=1
+        console.log("hi")
     }
 
 }
 
+
 //restart function
+PlayAgain.onclick=()=>{
+    history.go(0)
+} 
