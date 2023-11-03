@@ -12,6 +12,7 @@ let xAttempts=[]
 let oAttempts=[]
 let wonTheGame=0
 
+//click function 
 boxElements.forEach((el,i,arr)=>{
     el.addEventListener("click",handleClick)
     // console.log(el)
@@ -19,7 +20,41 @@ boxElements.forEach((el,i,arr)=>{
 })
 
 function handleClick(event){
-    let i= event.target.id
+    let id= event.target.id
     // console.log(i)
-    
+    let p=document.createElement("p")
+    p.setAttribute("id","text")
+    boxElements[id-1].append(p)
+    if (click%2==0){
+        p.innerHTML="X"
+        p.style.color="yellow"
+        xAttempts.push(parseInt(id-1))
+    }else{
+        p.innerHTML="O"
+        p.style.color="red"
+        oAttempts.push(parseInt(id-1))
+    }
+    click++
+    //tie situation 
+    if (click==9&& wonTheGame==0){
+        result.style.visibility="visible";
+        Message.innerHTML="Tie!!"
+    }  
 }
+
+//result function
+function Result(winningCombination,attempts,player){
+    let flag=0
+    let checker =[]
+    for (let i=0; i<winningCombination.length;i++){
+    if(Array.isArray(winningCombination[i])){
+        Result(winningCombination,attempts,player)
+    }
+    else{
+        
+    }
+    }
+
+}
+
+//restart function
